@@ -1,0 +1,21 @@
+--- ./Makefile~	2005-06-01 19:40:03.000000000 +0300
++++ ./Makefile	2005-06-09 12:42:49.000000000 +0300
+@@ -45,8 +45,9 @@
+ DEFINES   += -DCONFIG_USB_SPCA5XX_MODULE=1 -DMODULE -D__KERNEL__
+ DEFINES   += -DVID_HARDWARE_SPCA5XX=0xFF -DSPCA5XX_VERSION=\"$(VERSION)\"
+ 
+-ifneq ($(shell uname -r | cut -d. -f1,2), 2.4)
++KERNEL_VERSION = `uname -r`
+ 
++ifneq ($(shell echo $(KERNEL_VERSION) | cut -d. -f1,2), 2.4)
+ ifneq ($(KERNELRELEASE),)   # We were called by kbuild
+ CFLAGS += $(DEFINES) 
+ obj-m += spca5xx.o
+@@ -54,7 +55,6 @@
+ 
+ else   # We were called from command line
+ 
+-KERNEL_VERSION = `uname -r`
+ KERNELDIR := /lib/modules/$(KERNEL_VERSION)/build
+ PWD  := $(shell pwd)
+ MODULE_INSTALLDIR = /lib/modules/$(KERNEL_VERSION)/kernel/drivers/usb/media/
