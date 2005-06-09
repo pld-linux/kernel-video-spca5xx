@@ -10,11 +10,11 @@
 
 Summary:	Linux driver for spca5xx
 Summary(pl):	Sterownik dla Linuksa do spca5xx
-Name:		kernel-char-spca5xx
+Name:		kernel-video-spca5xx
 %define		_snap 20050601
 %define		_ver 0.56.03
-Version:	%{_ver}.%{_snap}
-%define		_rel	0.1
+Version:	%{_ver}
+%define		_rel	0.%{_snap}.1
 Release:    %{_rel}@%{_kernel_ver_str}
 Epoch:		0
 License:	GPL
@@ -42,10 +42,10 @@ Etoms and Transvision.
 
 This package contains Linux module.
 
-%description -n kernel-char-spca5xx -l pl
+%description -n kernel-video-spca5xx -l pl
 Ten pakiet zawiera modu³ j±dra Linuksa.
 
-%package -n kernel-smp-char-spca5xx
+%package -n kernel-smp-video-spca5xx
 Summary:	Linux SMP driver for spca5xx
 Summary(pl):	Sterownik dla Linuksa SMP do spca5xx
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -56,7 +56,7 @@ Requires(post,postun):	/sbin/depmod
 Requires(postun):	%releq_kernel_smp
 %endif
 
-%description -n kernel-smp-char-spca5xx
+%description -n kernel-smp-video-spca5xx
 This is version %{_ver} the spca5xx video for linux (v4l) driver,
 providing support for webcams and digital cameras based on the spca5xx
 range of chips manufactured by SunPlus Sonix Z-star Vimicro Conexant
@@ -66,7 +66,7 @@ This is driver for spca5xx for Linux.
 
 This package contains Linux SMP module.
 
-%description -n kernel-smp-char-spca5xx -l pl
+%description -n kernel-smp-video-spca5xx -l pl
 Sterownik dla Linuksa do spca5xx.
 
 Ten pakiet zawiera modu³ j±dra Linuksa SMP.
@@ -111,12 +111,12 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %if %{with kernel}
-install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/char
+install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/video
 install spca5xx-%{?with_dist_kernel:up}%{!?with_dist_kernel:nondist}.ko \
-	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/char/spca5xx.ko
+	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/video/spca5xx.ko
 %if %{with smp} && %{with dist_kernel}
 install spca5xx-smp.ko \
-	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/char/spca5xx.ko
+	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/video/spca5xx.ko
 %endif
 %endif
 
@@ -129,22 +129,22 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 %depmod %{_kernel_ver}
 
-%post	-n kernel-smp-char-spca5xx
+%post	-n kernel-smp-video-spca5xx
 %depmod %{_kernel_ver}smp
 
-%postun	-n kernel-smp-char-spca5xx
+%postun	-n kernel-smp-video-spca5xx
 %depmod %{_kernel_ver}smp
 
 %if %{with kernel}
 %files
 %defattr(644,root,root,755)
 %doc CHANGELOG README README-TV8532 RGB-YUV-module-setting
-/lib/modules/%{_kernel_ver}/char/*.ko*
+/lib/modules/%{_kernel_ver}/video/*.ko*
 
 %if %{with smp} && %{with dist_kernel}
-%files -n kernel-smp-char-spca5xx
+%files -n kernel-smp-video-spca5xx
 %defattr(644,root,root,755)
 %doc CHANGELOG README README-TV8532 RGB-YUV-module-setting
-/lib/modules/%{_kernel_ver}smp/char/*.ko*
+/lib/modules/%{_kernel_ver}smp/video/*.ko*
 %endif
 %endif
