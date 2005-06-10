@@ -1,3 +1,4 @@
+#
 # Conditional build:
 %bcond_without	dist_kernel	# allow non-distribution kernel
 %bcond_without	kernel		# don't build kernel modules
@@ -15,7 +16,7 @@ Name:		kernel-video-spca5xx
 %define		_ver 0.56.03
 Version:	%{_ver}
 %define		_rel	0.%{_snap}.1
-Release:    %{_rel}@%{_kernel_ver_str}
+Release:	%{_rel}@%{_kernel_ver_str}
 Epoch:		0
 License:	GPL
 Group:		Base/Kernel
@@ -35,7 +36,7 @@ Requires(postun):	%releq_kernel_up
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-This is version %{_ver} of the spca5xx video for linux (v4l) driver,
+This is version %{_ver} of the spca5xx Video for Linux (v4l) driver,
 providing support for webcams and digital cameras based on the spca5xx
 range of chips manufactured by SunPlus Sonix Z-star Vimicro Conexant
 Etoms and Transvision.
@@ -43,6 +44,11 @@ Etoms and Transvision.
 This package contains Linux module.
 
 %description -n kernel-video-spca5xx -l pl
+To jest wersja %{_ver} sterownika Video for Linux (v4l) spca5xx
+dodaj±cego obs³ugê dla kamer i aparatów opartych na uk³adach spca5xx
+produkowanych przez SunPlus Sonix Z-star Vimicro Conexant Etoms and
+Transvision.
+
 Ten pakiet zawiera modu³ j±dra Linuksa.
 
 %package -n kernel-smp-video-spca5xx
@@ -67,6 +73,11 @@ This is driver for spca5xx for Linux.
 This package contains Linux SMP module.
 
 %description -n kernel-smp-video-spca5xx -l pl
+To jest wersja %{_ver} sterownika Video for Linux (v4l) spca5xx
+dodaj±cego obs³ugê dla kamer i aparatów opartych na uk³adach spca5xx
+produkowanych przez SunPlus Sonix Z-star Vimicro Conexant Etoms and
+Transvision.
+
 Sterownik dla Linuksa do spca5xx.
 
 Ten pakiet zawiera modu³ j±dra Linuksa SMP.
