@@ -28,6 +28,7 @@ URL:		http://spca50x.sourceforge.net/
 %{?with_dist_kernel:BuildRequires:	kernel-module-build >= 2.6.14}
 BuildRequires:	rpmbuild(macros) >= 1.217
 %endif
+BuildRequires:	sed >= 4.0
 Requires(post,postun):	/sbin/depmod
 %if %{with dist_kernel}
 %requires_releq_kernel_up
@@ -86,6 +87,8 @@ Ten pakiet zawiera modu³ j±dra Linuksa SMP.
 %setup -q -n spca5xx-%{_snap}
 %patch0 -p1
 mv RGB-YUV{%2f,-}module-setting
+sed -e '/#ifdef __KERNEL__/a#include <linux/version.h>' \
+    -i drivers/usb/spca5xx.h
 
 %build
 %if %{with kernel}
