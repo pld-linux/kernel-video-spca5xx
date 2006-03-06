@@ -12,8 +12,8 @@
 Summary:	Linux driver for spca5xx
 Summary(pl):	Sterownik dla Linuksa do spca5xx
 Name:		kernel-video-spca5xx
-%define		_snap 20060202
-%define		_ver 0.57.09
+%define		_snap 20060301
+%define		_ver 0.57.10
 Version:	%{_ver}
 %define		_rel	0.%{_snap}.2
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -21,7 +21,7 @@ Epoch:		0
 License:	GPL
 Group:		Base/Kernel
 Source0:	http://mxhaard.free.fr/spca50x/Download/spca5xx-%{_snap}.tar.gz
-# Source0-md5:	5cd947396b2a0ce40e51c6edb205cc39
+# Source0-md5:	4160e03c408ac254111febacf058b88a
 Patch0:		spca5xx-build.patch
 URL:		http://mxhaard.free.fr/
 %if %{with kernel}
