@@ -1,3 +1,5 @@
+# TODO:
+# - remove hardcoded paths from kernel log.
 #
 # Conditional build:
 %bcond_without	dist_kernel	# allow non-distribution kernel
