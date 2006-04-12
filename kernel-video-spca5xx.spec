@@ -11,13 +11,13 @@
 %undefine	with_dist_kernel
 %endif
 
+%define		_snap 20060402
+%define		_ver 0.57.11
+%define		_rel	0.%{_snap}.2
 Summary:	Linux driver for spca5xx
 Summary(pl):	Sterownik dla Linuksa do spca5xx
 Name:		kernel-video-spca5xx
-%define		_snap 20060402
-%define		_ver 0.57.11
 Version:	%{_ver}
-%define		_rel	0.%{_snap}.2
 Release:	%{_rel}@%{_kernel_ver_str}
 Epoch:		0
 License:	GPL
@@ -27,7 +27,7 @@ Source0:	http://mxhaard.free.fr/spca50x/Download/spca5xx-%{_snap}.tar.gz
 Patch0:		spca5xx-build.patch
 URL:		http://mxhaard.free.fr/
 %if %{with kernel}
-%{?with_dist_kernel:BuildRequires:	kernel-module-build >= 2.6.14}
+%{?with_dist_kernel:BuildRequires:	kernel-module-build >= 3:2.6.14}
 BuildRequires:	rpmbuild(macros) >= 1.217
 %endif
 BuildRequires:	sed >= 4.0
@@ -119,13 +119,13 @@ for cfg in %{?with_dist_kernel:%{?with_smp:smp} up}%{!?with_dist_kernel:nondist}
 		SYSSRC=%{_kernelsrcdir} \
 		SYSOUT=$PWD/o \
 		M=$PWD O=$PWD/o \
-		%{?with_verbose:V=1} 
+		%{?with_verbose:V=1}
 	%{__make} -C %{_kernelsrcdir} modules \
 		CC="%{__cc}" CPP="%{__cpp}" \
 		SYSSRC=%{_kernelsrcdir} \
 		SYSOUT=$PWD/o \
 		M=$PWD O=$PWD/o \
-		%{?with_verbose:V=1} 
+		%{?with_verbose:V=1}
 	mv spca5xx{,-$cfg}.ko
 done
 %endif
