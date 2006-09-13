@@ -11,6 +11,11 @@
 %undefine	with_dist_kernel
 %endif
 
+# see kernel.spec
+%ifarch sparc
+%undefine	with_smp
+%endif
+
 %define		_snap 20060501
 %define		_ver 0.60.00
 %define		_rel	0.%{_snap}.1
