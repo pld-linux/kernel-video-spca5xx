@@ -21,7 +21,7 @@
 %define		_rel	0.%{_snap}.1
 Summary:	Linux driver for spca5xx
 Summary(pl):	Sterownik dla Linuksa do spca5xx
-Name:		kernel-video-spca5xx
+Name:		kernel%{_alt_kernel}-video-spca5xx
 Version:	%{_ver}
 Release:	%{_rel}@%{_kernel_ver_str}
 Epoch:		0
@@ -32,8 +32,8 @@ Source0:	http://mxhaard.free.fr/spca50x/Download/spca5xx-%{_snap}.tar.gz
 Patch0:		spca5xx-build.patch
 URL:		http://mxhaard.free.fr/
 %if %{with kernel}
-%{?with_dist_kernel:BuildRequires:	kernel-module-build >= 3:2.6.14}
-BuildRequires:	rpmbuild(macros) >= 1.217
+%{?with_dist_kernel:BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.14}
+BuildRequires:	rpmbuild(macros) >= 1.326
 %endif
 BuildRequires:	sed >= 4.0
 Requires(post,postun):	/sbin/depmod
@@ -51,7 +51,7 @@ Etoms and Transvision.
 
 This package contains Linux module.
 
-%description -n kernel-video-spca5xx -l pl
+%description -n kernel%{_alt_kernel}-video-spca5xx -l pl
 To jest wersja %{_ver} sterownika Video for Linux (v4l) spca5xx
 dodaj±cego obs³ugê dla kamer i aparatów opartych na uk³adach spca5xx
 produkowanych przez SunPlus Sonix Z-star Vimicro Conexant Etoms and
@@ -59,7 +59,7 @@ Transvision.
 
 Ten pakiet zawiera modu³ j±dra Linuksa.
 
-%package -n kernel-smp-video-spca5xx
+%package -n kernel%{_alt_kernel}-smp-video-spca5xx
 Summary:	Linux SMP driver for spca5xx
 Summary(pl):	Sterownik dla Linuksa SMP do spca5xx
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -70,7 +70,7 @@ Requires(post,postun):	/sbin/depmod
 Requires(postun):	%releq_kernel_smp
 %endif
 
-%description -n kernel-smp-video-spca5xx
+%description -n kernel%{_alt_kernel}-smp-video-spca5xx
 This is version %{_ver} the spca5xx video for linux (v4l) driver,
 providing support for webcams and digital cameras based on the spca5xx
 range of chips manufactured by SunPlus Sonix Z-star Vimicro Conexant
@@ -80,7 +80,7 @@ This is driver for spca5xx for Linux.
 
 This package contains Linux SMP module.
 
-%description -n kernel-smp-video-spca5xx -l pl
+%description -n kernel%{_alt_kernel}-smp-video-spca5xx -l pl
 To jest wersja %{_ver} sterownika Video for Linux (v4l) spca5xx
 dodaj±cego obs³ugê dla kamer i aparatów opartych na uk³adach spca5xx
 produkowanych przez SunPlus Sonix Z-star Vimicro Conexant Etoms and
@@ -99,53 +99,14 @@ sed -e '/#ifdef __KERNEL__/a#include <linux/version.h>' \
 
 %build
 %if %{with kernel}
-# kernel module(s)
-for cfg in %{?with_dist_kernel:%{?with_smp:smp} up}%{!?with_dist_kernel:nondist}; do
-	if [ ! -r "%{_kernelsrcdir}/config-$cfg" ]; then
-		exit 1
-	fi
-	rm -rf include
-	install -d o/include/linux
-	ln -sf %{_kernelsrcdir}/config-$cfg o/.config
-	ln -sf %{_kernelsrcdir}/Module.symvers-$cfg o/Module.symvers
-	ln -sf %{_kernelsrcdir}/include/linux/autoconf-$cfg.h o/include/linux/autoconf.h
-%if %{with dist_kernel}
-	%{__make} -j1 -C %{_kernelsrcdir} O=$PWD/o prepare scripts
-%else
-	install -d o/include/config
-	touch o/include/config/MARKER
-	ln -sf %{_kernelsrcdir}/scripts o/scripts
-%endif
-#
-#	patching/creating makefile(s) (optional)
-#
-	%{__make} -C %{_kernelsrcdir} clean \
-		RCS_FIND_IGNORE="-name '*.ko' -o" \
-		SYSSRC=%{_kernelsrcdir} \
-		SYSOUT=$PWD/o \
-		M=$PWD O=$PWD/o \
-		%{?with_verbose:V=1}
-	%{__make} -C %{_kernelsrcdir} modules \
-		CC="%{__cc}" CPP="%{__cpp}" \
-		SYSSRC=%{_kernelsrcdir} \
-		SYSOUT=$PWD/o \
-		M=$PWD O=$PWD/o \
-		%{?with_verbose:V=1}
-	mv spca5xx{,-$cfg}.ko
-done
+%build_kernel_modules -m spca5xx
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %if %{with kernel}
-install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/video
-install spca5xx-%{?with_dist_kernel:up}%{!?with_dist_kernel:nondist}.ko \
-	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/video/spca5xx.ko
-%if %{with smp} && %{with dist_kernel}
-install spca5xx-smp.ko \
-	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/video/spca5xx.ko
-%endif
+%install_kernel_modules -m spca5xx -d kernel/drivers/media/video
 %endif
 
 %clean
@@ -157,22 +118,22 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 %depmod %{_kernel_ver}
 
-%post	-n kernel-smp-video-spca5xx
+%post	-n kernel%{_alt_kernel}-smp-video-spca5xx
 %depmod %{_kernel_ver}smp
 
-%postun	-n kernel-smp-video-spca5xx
+%postun	-n kernel%{_alt_kernel}-smp-video-spca5xx
 %depmod %{_kernel_ver}smp
 
 %if %{with kernel}
 %files
 %defattr(644,root,root,755)
 %doc CHANGELOG README README-TV8532 RGB-YUV-module-setting
-/lib/modules/%{_kernel_ver}/video/*.ko*
+/lib/modules/%{_kernel_ver}/kernel/drivers/media/video/spca5xx.ko*
 
 %if %{with smp} && %{with dist_kernel}
-%files -n kernel-smp-video-spca5xx
+%files -n kernel%{_alt_kernel}-smp-video-spca5xx
 %defattr(644,root,root,755)
 %doc CHANGELOG README README-TV8532 RGB-YUV-module-setting
-/lib/modules/%{_kernel_ver}smp/video/*.ko*
+/lib/modules/%{_kernel_ver}smp/kernel/drivers/media/video/spca5xx.ko*
 %endif
 %endif
