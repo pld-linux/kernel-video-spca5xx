@@ -33,7 +33,7 @@ Patch0:		spca5xx-build.patch
 URL:		http://mxhaard.free.fr/
 %if %{with kernel}
 %{?with_dist_kernel:BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.14}
-BuildRequires:	rpmbuild(macros) >= 1.326
+BuildRequires:	rpmbuild(macros) >= 1.330
 %endif
 BuildRequires:	sed >= 4.0
 Requires(post,postun):	/sbin/depmod
