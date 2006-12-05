@@ -94,7 +94,7 @@ Ten pakiet zawiera modu³ j±dra Linuksa SMP.
 %setup -q -n spca5xx-%{_snap}
 %patch0 -p1
 mv RGB-YUV{%2f,-}module-setting
-sed -e '/#ifdef __KERNEL__/a#include <linux/version.h>' \
+sed -e '/#ifdef __KERNEL__/a#include <linux/version.h>\n#include <media/v4l2-dev.h>' \
     -i drivers/usb/spca5xx.h
 
 %build
