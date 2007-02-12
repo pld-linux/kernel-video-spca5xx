@@ -20,7 +20,7 @@
 %define		_ver 0.60.00
 %define		_rel	0.%{_snap}.1
 Summary:	Linux driver for spca5xx
-Summary(pl):	Sterownik dla Linuksa do spca5xx
+Summary(pl.UTF-8):   Sterownik dla Linuksa do spca5xx
 Name:		kernel%{_alt_kernel}-video-spca5xx
 Version:	%{_ver}
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -51,17 +51,17 @@ Etoms and Transvision.
 
 This package contains Linux module.
 
-%description -n kernel%{_alt_kernel}-video-spca5xx -l pl
+%description -n kernel%{_alt_kernel}-video-spca5xx -l pl.UTF-8
 To jest wersja %{_ver} sterownika Video for Linux (v4l) spca5xx
-dodaj±cego obs³ugê dla kamer i aparatów opartych na uk³adach spca5xx
+dodajÄ…cego obsÅ‚ugÄ™ dla kamer i aparatÃ³w opartych na ukÅ‚adach spca5xx
 produkowanych przez SunPlus Sonix Z-star Vimicro Conexant Etoms and
 Transvision.
 
-Ten pakiet zawiera modu³ j±dra Linuksa.
+Ten pakiet zawiera moduÅ‚ jÄ…dra Linuksa.
 
 %package -n kernel%{_alt_kernel}-smp-video-spca5xx
 Summary:	Linux SMP driver for spca5xx
-Summary(pl):	Sterownik dla Linuksa SMP do spca5xx
+Summary(pl.UTF-8):   Sterownik dla Linuksa SMP do spca5xx
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 Requires(post,postun):	/sbin/depmod
@@ -80,15 +80,15 @@ This is driver for spca5xx for Linux.
 
 This package contains Linux SMP module.
 
-%description -n kernel%{_alt_kernel}-smp-video-spca5xx -l pl
+%description -n kernel%{_alt_kernel}-smp-video-spca5xx -l pl.UTF-8
 To jest wersja %{_ver} sterownika Video for Linux (v4l) spca5xx
-dodaj±cego obs³ugê dla kamer i aparatów opartych na uk³adach spca5xx
+dodajÄ…cego obsÅ‚ugÄ™ dla kamer i aparatÃ³w opartych na ukÅ‚adach spca5xx
 produkowanych przez SunPlus Sonix Z-star Vimicro Conexant Etoms and
 Transvision.
 
 Sterownik dla Linuksa do spca5xx.
 
-Ten pakiet zawiera modu³ j±dra Linuksa SMP.
+Ten pakiet zawiera moduÅ‚ jÄ…dra Linuksa SMP.
 
 %prep
 %setup -q -n spca5xx-%{_snap}
