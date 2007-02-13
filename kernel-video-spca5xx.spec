@@ -20,7 +20,7 @@
 %define		_ver 0.60.00
 %define		_rel	0.%{_snap}.1
 Summary:	Linux driver for spca5xx
-Summary(pl.UTF-8):   Sterownik dla Linuksa do spca5xx
+Summary(pl.UTF-8):	Sterownik dla Linuksa do spca5xx
 Name:		kernel%{_alt_kernel}-video-spca5xx
 Version:	%{_ver}
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -61,7 +61,7 @@ Ten pakiet zawiera moduł jądra Linuksa.
 
 %package -n kernel%{_alt_kernel}-smp-video-spca5xx
 Summary:	Linux SMP driver for spca5xx
-Summary(pl.UTF-8):   Sterownik dla Linuksa SMP do spca5xx
+Summary(pl.UTF-8):	Sterownik dla Linuksa SMP do spca5xx
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 Requires(post,postun):	/sbin/depmod
