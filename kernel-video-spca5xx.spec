@@ -31,7 +31,7 @@ Source0:	http://mxhaard.free.fr/spca50x/Download/spca5xx-%{_snap}.tar.gz
 Patch0:		spca5xx-build.patch
 URL:		http://mxhaard.free.fr/
 %if %{with kernel}
-%{?with_dist_kernel:BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.14}
+%{?with_dist_kernel:BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.20.2}
 BuildRequires:	rpmbuild(macros) >= 1.379
 %endif
 BuildRequires:	sed >= 4.0
