@@ -10,13 +10,8 @@
 %undefine	with_dist_kernel
 %endif
 
-# see kernel.spec
-%ifarch sparc
-%undefine	with_smp
-%endif
-
-%define		_snap 20060501
-%define		_ver 0.60.00
+%define		_snap v4l1goodbye
+%define		_ver 0.61.00
 %define		_rel	0.%{_snap}.1
 Summary:	Linux driver for spca5xx
 Summary(pl.UTF-8):	Sterownik dla Linuksa do spca5xx
@@ -27,7 +22,7 @@ Epoch:		0
 License:	GPL
 Group:		Base/Kernel
 Source0:	http://mxhaard.free.fr/spca50x/Download/spca5xx-%{_snap}.tar.gz
-# Source0-md5:	8fcec25715aea10f9ebec5728c37e752
+# Source0-md5:	63bbe5d5c833f9b6b266fb58c54bf25e
 Patch0:		spca5xx-build.patch
 URL:		http://mxhaard.free.fr/
 %if %{with kernel}
@@ -89,6 +84,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with kernel}
 %files
 %defattr(644,root,root,755)
-%doc CHANGELOG README README-TV8532 RGB-YUV-module-setting
+%doc CHANGELOG README-KERNEL-UPTO-2.6.16 readme README-TV8532 RGB-YUV-module-setting
 /lib/modules/%{_kernel_ver}/kernel/drivers/media/video/spca5xx.ko*
 %endif
