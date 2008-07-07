@@ -57,8 +57,9 @@ Ten pakiet zawiera moduł jądra Linuksa.
 %setup -q -n spca5xx-%{_snap}
 %patch0 -p1
 mv RGB-YUV{%2f,-}module-setting
-sed -e '/#ifdef __KERNEL__/a#include <linux/version.h>\n#include <media/v4l2-dev.h>' \
+%{__sed} -e '/#ifdef __KERNEL__/a#include <linux/version.h>\n#include <media/v4l2-dev.h>' \
     -i drivers/usb/spca5xx.h
+%{__sed} -i -e 's/CFLAGS/EXTRA_CFLAGS/g' Makefile
 
 %build
 %if %{with kernel}
