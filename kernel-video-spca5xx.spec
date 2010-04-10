@@ -6,22 +6,22 @@
 %bcond_without	kernel		# don't build kernel modules
 %bcond_with	verbose		# verbose build (V=1)
 
-%if !%{with kernel}
+%if %{without kernel}
 %undefine	with_dist_kernel
 %endif
 
-%define		_snap v4l1goodbye
-%define		_ver 0.61.00
-%define		_rel	0.%{_snap}.1
+%define		snap 	v4l1goodbye
+%define		ver 	0.61.00
+%define		rel		0.%{snap}.1
 Summary:	Linux driver for spca5xx
 Summary(pl.UTF-8):	Sterownik dla Linuksa do spca5xx
 Name:		kernel%{_alt_kernel}-video-spca5xx
-Version:	%{_ver}
-Release:	%{_rel}@%{_kernel_ver_str}
+Version:	%{ver}
+Release:	%{rel}@%{_kernel_ver_str}
 Epoch:		0
 License:	GPL
 Group:		Base/Kernel
-Source0:	http://mxhaard.free.fr/spca50x/Download/spca5xx-%{_snap}.tar.gz
+Source0:	http://mxhaard.free.fr/spca50x/Download/spca5xx-%{snap}.tar.gz
 # Source0-md5:	63bbe5d5c833f9b6b266fb58c54bf25e
 Patch0:		spca5xx-build.patch
 Patch1:		spca5xx-2.6.25.patch
@@ -39,7 +39,7 @@ Requires(postun):	%releq_kernel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-This is version %{_ver} of the spca5xx Video for Linux (v4l) driver,
+This is version %{ver} of the spca5xx Video for Linux (v4l) driver,
 providing support for webcams and digital cameras based on the spca5xx
 range of chips manufactured by SunPlus Sonix Z-star Vimicro Conexant
 Etoms and Transvision.
@@ -47,7 +47,7 @@ Etoms and Transvision.
 This package contains Linux module.
 
 %description -n kernel%{_alt_kernel}-video-spca5xx -l pl.UTF-8
-To jest wersja %{_ver} sterownika Video for Linux (v4l) spca5xx
+To jest wersja %{ver} sterownika Video for Linux (v4l) spca5xx
 dodającego obsługę dla kamer i aparatów opartych na układach spca5xx
 produkowanych przez SunPlus Sonix Z-star Vimicro Conexant Etoms and
 Transvision.
@@ -55,7 +55,7 @@ Transvision.
 Ten pakiet zawiera moduł jądra Linuksa.
 
 %prep
-%setup -q -n spca5xx-%{_snap}
+%setup -q -n spca5xx-%{snap}
 %patch0 -p1
 %patch1 -p0
 mv RGB-YUV{%2f,-}module-setting
